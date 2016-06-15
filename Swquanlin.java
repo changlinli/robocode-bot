@@ -11,15 +11,21 @@ import robocode.*;
  */
 public class Swquanlin extends Robot
 {
-
+	static double scanSize;
+	
 	/**
 	 * MyFirstRobot's run method - Seesaw
 	 */
 	public void run() {
-		setAdjustRadarForGunTurn(true);
-		setAdjustRadarForRobotTurn(true);
+		scanSize = 360;
 		
 		while (true) {
+			setAdjustRadarForGunTurn(true);
+			setAdjustRadarForRobotTurn(true);
+			turnRadarRight(scanSize);
+			setAdjustRadarForGunTurn(false);
+			setAdjustRadarForRobotTurn(false);
+			
 			ahead(100); // Move ahead 100
 			turnGunRight(360); // Spin gun around
 			back(100); // Move back 100
