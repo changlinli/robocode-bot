@@ -16,7 +16,9 @@ public class Swquanlin extends Robot
 	 * MyFirstRobot's run method - Seesaw
 	 */
 	public void run() {
-
+		setAdjustRadarForGunTurn(true);
+		setAdjustRadarForRobotTurn(true);
+		
 		while (true) {
 			ahead(100); // Move ahead 100
 			turnGunRight(360); // Spin gun around
