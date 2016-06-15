@@ -1,8 +1,8 @@
 // For some reason I can't get my current package name to do this right
 //package Blah;
 
-//package robocodeBot;
-package sample;
+package robocodeBot;
+//package sample;
 import robocode.*;
 //import java.awt.Color;
 
@@ -69,5 +69,6 @@ public class Swquanlin extends Robot
 
     public void onHitWall(HitWallEvent e) {
         turnLeft(-1.0 * e.getBearing());
+        ahead(1000);
     }
 }
