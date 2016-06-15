@@ -1,26 +1,16 @@
-/**
- * Copyright (c) 2001-2016 Mathew A. Nelson and Robocode contributors
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://robocode.sourceforge.net/license/epl-v10.html
- */
-package sample;
+// For some reason I can't get my current package name to do this right
+//package Blah;
+package robocodeBot;
+import robocode.*;
+//import java.awt.Color;
 
-
-import robocode.HitByBulletEvent;
-import robocode.Robot;
-import robocode.ScannedRobotEvent;
-
+// API help : http://robocode.sourceforge.net/docs/robocode/robocode/Robot.html
 
 /**
- * MyFirstRobot - a sample robot by Mathew Nelson.
- * <p/>
- * Moves in a seesaw motion, and spins the gun around at each end.
- *
- * @author Mathew A. Nelson (original)
+ * MyFirstRobot - a robot by (your name here)
  */
-public class Swquanlin extends Robot {
+public class Swquanlin extends Robot
+{
 
 	/**
 	 * MyFirstRobot's run method - Seesaw
@@ -42,6 +32,13 @@ public class Swquanlin extends Robot {
 		fire(1);
 	}
 
+    private double perpendicularHeading(int enemyLocX, int enemyLocY, int currentLocX, int currentLocY, double currentAngle) {
+        int yDiff = enemyLocY - currentLocY;
+        int xDiff = enemyLocX - currentLocX;
+        double angleOffset = Math.atan((double) xDiff / (double) yDiff);
+        return angleOffset + Math.PI / 2.0;
+    }
+
 	/**
 	 * We were hit!  Turn perpendicular to the bullet,
 	 * so our seesaw might avoid a future shot.
@@ -49,5 +46,4 @@ public class Swquanlin extends Robot {
 	public void onHitByBullet(HitByBulletEvent e) {
 		turnLeft(90 - e.getBearing());
 	}
-}												
-
+}
