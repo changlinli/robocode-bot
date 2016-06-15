@@ -32,7 +32,7 @@ public class Swquanlin extends Robot
 		fire(1);
 	}
 
-    private double perpendicularHeading(int enemyLocX, int enemyLocY, int currentLocX, int currentLocY, double currentAngle) {
+    private double perpendicularHeadingRadians(int enemyLocX, int enemyLocY, int currentLocX, int currentLocY) {
         int yDiff = enemyLocY - currentLocY;
         int xDiff = enemyLocX - currentLocX;
         double angleOffset = Math.atan((double) xDiff / (double) yDiff);
