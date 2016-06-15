@@ -14,7 +14,9 @@ import robocode.*;
 public class Swquanlin extends Robot
 {
 	static double scanSize;
+	static double lastScannedTime;
 	
+	static double scannedIntervalMs = 1000;
 	/**
 	 * MyFirstRobot's run method - Seesaw
 	 */
@@ -22,12 +24,17 @@ public class Swquanlin extends Robot
 		scanSize = 360;
 		
 		while (true) {
-			setAdjustRadarForGunTurn(true);
-			setAdjustRadarForRobotTurn(true);
-			turnRadarRight(scanSize);
-			setAdjustRadarForGunTurn(false);
-			setAdjustRadarForRobotTurn(false);
-			
+		
+			// do a 360 scan once data is stale
+			double currentTime = System.currentTimeMillis();	
+			if (currentTime - lastScannedTime > scannedIntervalMs) {
+				setAdjustRadarForGunTurn(true);
+				setAdjustRadarForRobotTurn(true);
+				turnRadarRight(scanSize);
+				lastScannedTime = System.currentTimeMillis();
+				setAdjustRadarForGunTurn(false);
+				setAdjustRadarForRobotTurn(false);
+			}
 			ahead(100); // Move ahead 100
 			turnGunRight(360); // Spin gun around
 			back(100); // Move back 100
@@ -41,6 +48,18 @@ public class Swquanlin extends Robot
 	public void onScannedRobot(ScannedRobotEvent e) {
         e.getBearing();
 		fire(1);
+		double currentTime = System.currentTimeMillis();
+		
+		// wiggle the scanner
+		if (currentTime - lastScannedTime > scannedIntervalMs) {
+			setAdjustRadarForGunTurn(true);
+			setAdjustRadarForRobotTurn(true);
+			turnRadarRight(45);
+			turnRadarLeft(90);
+			lastScannedTime = System.currentTimeMillis();
+			setAdjustRadarForGunTurn(false);
+			setAdjustRadarForRobotTurn(false);
+		}
 	}
 
     private double perpendicularHeadingRadians(double enemyLocX, double enemyLocY, double currentLocX, double currentLocY) {
