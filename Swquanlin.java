@@ -1,6 +1,8 @@
 // For some reason I can't get my current package name to do this right
 //package Blah;
-package robocodeBot;
+
+//package robocodeBot;
+package sample;
 import robocode.*;
 //import java.awt.Color;
 
@@ -29,15 +31,25 @@ public class Swquanlin extends Robot
 	 * Fire when we see a robot
 	 */
 	public void onScannedRobot(ScannedRobotEvent e) {
+        e.getBearing();
 		fire(1);
 	}
 
-    private double perpendicularHeadingRadians(int enemyLocX, int enemyLocY, int currentLocX, int currentLocY) {
-        int yDiff = enemyLocY - currentLocY;
-        int xDiff = enemyLocX - currentLocX;
-        double angleOffset = Math.atan((double) xDiff / (double) yDiff);
+    private double perpendicularHeadingRadians(double enemyLocX, double enemyLocY, double currentLocX, double currentLocY) {
+        double yDiff = enemyLocY - currentLocY;
+        double xDiff = enemyLocX - currentLocX;
+        double angleOffset = Math.atan2(yDiff, xDiff);
         return angleOffset + Math.PI / 2.0;
     }
+
+    private void turnPerpendicular(int enemyLocX, int enemyLocY) {
+        double currentX = getX();
+        double currentY = getY();
+        double currentBearing = Math.toRadians(getHeading());
+        double bearingOffset = perpendicularHeadingRadians(enemyLocX, enemyLocY, currentX, currentY);
+        turnLeft(Math.toDegrees(currentBearing + bearingOffset));
+    }
+
 
 	/**
 	 * We were hit!  Turn perpendicular to the bullet,
