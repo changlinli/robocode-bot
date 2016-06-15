@@ -66,4 +66,8 @@ public class Swquanlin extends Robot
 	public void onHitByBullet(HitByBulletEvent e) {
 		turnLeft(90 - e.getBearing());
 	}
+
+    public void onHitWall(HitWallEvent e) {
+        turnLeft(-1.0 * e.getBearing());
+    }
 }
